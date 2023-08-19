@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  # Django web server
+  web:
+    # We use root user to be able to access the volume files due to the need of writing in sqlite db
+    user: root
+    image: superdupertax
+    build:
+      context: ./superdupertax
+      dockerfile: Dockerfile
+    volumes:
+      - ./superdupertax/:/home/superdupertax/web
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=superdupertax.settings.docker
